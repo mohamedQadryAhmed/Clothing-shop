@@ -14,27 +14,32 @@ const Footer = () => {
           </p>
         </div>
         <div>
-            <h3 className="text-xl font-medium mb-5 uppercase font-prata">Company</h3>
-            <ul className="flex flex-col gap-1 text-gray-600">
-                <li>Home</li>
-                <li>About us</li>
-                <li>Delivery</li>
-                <li>Privacy Policy</li>
-            </ul>
+          <h3 className="text-xl font-medium mb-5 uppercase font-prata">
+            Company
+          </h3>
+          <ul className="flex flex-col gap-1 text-gray-600">
+            <li>Home</li>
+            <li>About us</li>
+            <li>Delivery</li>
+            <li>Privacy Policy</li>
+          </ul>
         </div>
         <div>
-            <h3 className="text-xl font-medium mb-5 uppercase font-prata">Get In Touch</h3>
-            <ul className="flex flex-col gap-1 text-gray-600">
-                <li>+20-1010101010</li>
-                <li>contact@forever.com</li>
-            </ul>
+          <h3 className="text-xl font-medium mb-5 uppercase font-prata">
+            Get In Touch
+          </h3>
+          <ul className="flex flex-col gap-1 text-gray-600">
+            <li>+20-1010101010</li>
+            <li>contact@forever.com</li>
+          </ul>
         </div>
-        </div>
-        <div>
-            <hr />
-            <p className="py-5 text-sm text-center">Copyright 2024@ forever.com - All Right Reservied </p>
-        </div>
-    
+      </div>
+      <div>
+        <hr />
+        <p className="py-5 text-sm text-center">
+          Copyright 2024@ forever.com - All Right Reservied{" "}
+        </p>
+      </div>
     </footer>
   );
 };
