@@ -8,10 +8,46 @@ function Collection() {
   const { products } = useContext(ShopContext);
   const [showFilter, setshowFilter] = useState(false);
   const [filterProducts, setfilterProducts] = useState([]);
+  const [categoryFilter, setcategoryFilter] = useState([]);
+  const [typeFilter, settypeFilter] = useState([]);
+
+  const toggleCategory = (e) => {
+    if (categoryFilter.includes(e.target.value)) {
+      setcategoryFilter((prev) =>
+        prev.filter((item) => item !== e.target.value)
+      );
+    } else {
+      setcategoryFilter((prev) => [...prev, e.target.value]);
+    }
+  };
+
+  const toggleType = (e) => {
+    if (typeFilter.includes(e.target.value)) {
+      settypeFilter((prev) => prev.filter((item) => item !== e.target.value));
+    } else {
+      settypeFilter((prev) => [...prev, e.target.value]);
+    }
+  };
+
+  const applyFilters = () => {
+    let productsCopy = products.slice();
+    if (categoryFilter.length > 0) {
+      productsCopy = productsCopy.filter((item) =>
+        categoryFilter.includes(item.category)
+      );
+    }
+    if (typeFilter.length > 0) {
+      productsCopy = productsCopy.filter((item) =>
+        typeFilter.includes(item.subCategory)
+      );
+    }
+
+    setfilterProducts(productsCopy);
+  };
 
   useEffect(() => {
-    setfilterProducts(products);
-  }, []);
+    applyFilters();
+  }, [categoryFilter, typeFilter]);
 
   return (
     <div className="flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t">
@@ -37,13 +73,31 @@ function Collection() {
           <p className="mb-3 text-sm font-medium uppercase">Categories</p>
           <div className="flex flex-col gap-2 font-light text-gray-700">
             <p className="flex gap-2">
-              <input className="w-3" type="checkbox" value={"Men"} /> Men
+              <input
+                className="w-3"
+                type="checkbox"
+                value={"Men"}
+                onChange={toggleCategory}
+              />{" "}
+              Men
             </p>
             <p className="flex gap-2">
-              <input className="w-3" type="checkbox" value={"Women"} /> Women
+              <input
+                className="w-3"
+                type="checkbox"
+                value={"Women"}
+                onChange={toggleCategory}
+              />{" "}
+              Women
             </p>
             <p className="flex gap-2">
-              <input className="w-3" type="checkbox" value={"Kids"} /> Kids
+              <input
+                className="w-3"
+                type="checkbox"
+                value={"Kids"}
+                onChange={toggleCategory}
+              />{" "}
+              Kids
             </p>
           </div>
         </div>
@@ -56,15 +110,30 @@ function Collection() {
           <p className="mb-3 text-sm font-medium uppercase">Type</p>
           <div className="flex flex-col gap-2 font-light text-gray-700">
             <p className="flex gap-2">
-              <input className="w-3" type="checkbox" value={"Topwear"} />{" "}
+              <input
+                className="w-3"
+                type="checkbox"
+                value={"Topwear"}
+                onChange={toggleType}
+              />{" "}
               Topwear
             </p>
             <p className="flex gap-2">
-              <input className="w-3" type="checkbox" value={"Bottomwear"} />{" "}
+              <input
+                className="w-3"
+                type="checkbox"
+                value={"Bottomwear"}
+                onChange={toggleType}
+              />{" "}
               Bottomwear
             </p>
             <p className="flex gap-2">
-              <input className="w-3" type="checkbox" value={"Winterwear"} />{" "}
+              <input
+                className="w-3"
+                type="checkbox"
+                value={"Winterwear"}
+                onChange={toggleType}
+              />{" "}
               Winterwear
             </p>
           </div>
