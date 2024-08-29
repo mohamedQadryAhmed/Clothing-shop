@@ -5,10 +5,12 @@ import { PiHandbagLight } from "react-icons/pi";
 import { TbMenuDeep } from "react-icons/tb";
 import { MdArrowBackIosNew } from "react-icons/md";
 
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { ShopContext } from "../context/ShopContext";
 
 export default function Navbar() {
   const [openMenu, setopenMenu] = useState(false);
+  const { showSearch, setShowSearch } = useContext(ShopContext);
 
   return (
     <header className="flex items-center justify-between py-5 font-medium">
@@ -36,7 +38,11 @@ export default function Navbar() {
       </ul>
 
       <div className="flex items-center gap-6">
-        <IoSearchOutline className="w-5 h-5 cursor-pointer" />
+        <img
+          src={assets.search_icon}
+          className="w-5 cursor-pointer"
+          onClick={() => setShowSearch(!showSearch)}
+        />
 
         <div className="group relative">
           <IoPersonOutline className="w-5 h-5 cursor-pointer" />

@@ -5,13 +5,12 @@ import Title from "../components/Title";
 import ProductItem from "../components/ProductItem";
 
 function Collection() {
-  const { products } = useContext(ShopContext);
+  const { products, search, showSearch } = useContext(ShopContext);
   const [showFilter, setshowFilter] = useState(false);
   const [filterProducts, setfilterProducts] = useState([]);
   const [categoryFilter, setcategoryFilter] = useState([]);
   const [typeFilter, settypeFilter] = useState([]);
-  const [sortType, setsortType] = useState('relavent');
-  
+  const [sortType, setsortType] = useState("relavent");
 
   const toggleCategory = (e) => {
     if (categoryFilter.includes(e.target.value)) {
@@ -33,6 +32,12 @@ function Collection() {
 
   const applyFilters = () => {
     let productsCopy = products.slice();
+
+    if (showSearch && search) {
+      productsCopy = productsCopy.filter((item) =>
+        item.name.toLowerCase().includes(search.toLowerCase())
+      );
+    }
     if (categoryFilter.length > 0) {
       productsCopy = productsCopy.filter((item) =>
         categoryFilter.includes(item.category)
@@ -51,23 +56,22 @@ function Collection() {
     let filterProductsCopy = filterProducts.slice();
 
     switch (sortType) {
-      case 'low-to-hight':
-        setfilterProducts(filterProductsCopy.sort((a , b ) => (a.price - b.price)))
+      case "low-to-hight":
+        setfilterProducts(filterProductsCopy.sort((a, b) => a.price - b.price));
         break;
-      case 'hight-to-low':
-        setfilterProducts(filterProductsCopy.sort((a , b ) => (b.price - a.price)))
+      case "hight-to-low":
+        setfilterProducts(filterProductsCopy.sort((a, b) => b.price - a.price));
         break;
-    
+
       default:
         applyFilters();
         break;
     }
-
-  }
+  };
 
   useEffect(() => {
     sortProducts();
-  }, [categoryFilter, typeFilter , sortType]);
+  }, [categoryFilter, typeFilter, sortType, search, showSearch]);
 
   return (
     <div className="flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t">
@@ -164,7 +168,10 @@ function Collection() {
       <div className="flex-1 ">
         <div className="flex justify-between text-base sm:text-2xl mb-4">
           <Title text1={"All"} text2={"Collections"} />
-          <select onChange={(e)=> setsortType(e.target.value)} className="border border-gray-300 text-sm px-2 bg-white outline-none rounded-md">
+          <select
+            onChange={(e) => setsortType(e.target.value)}
+            className="border border-gray-300 text-sm px-2 bg-white outline-none rounded-md"
+          >
             <option value="relavent">Sort by: Relavent</option>
             <option value="low-to-hight">Sort by: Low To Hight</option>
             <option value="hight-to-low">Sort by: Hight to Low</option>
