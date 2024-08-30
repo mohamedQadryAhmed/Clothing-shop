@@ -10,7 +10,7 @@ import { ShopContext } from "../context/ShopContext";
 
 export default function Navbar() {
   const [openMenu, setopenMenu] = useState(false);
-  const { showSearch, setShowSearch } = useContext(ShopContext);
+  const { showSearch, setShowSearch, getCartCount } = useContext(ShopContext);
 
   return (
     <header className="flex items-center justify-between py-5 font-medium">
@@ -45,7 +45,7 @@ export default function Navbar() {
         />
 
         <div className="group relative">
-          <IoPersonOutline className="w-5 h-5 cursor-pointer" />
+          <img src={assets.profile_icon} className="w-5 cursor-pointer" />
           <div className="group-hover:block hidden absolute dropdown-menu right-0 pt-4">
             <div className="flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-500 rounded ">
               <p className="cursor-pointer hover:text-black ">My Profile</p>
@@ -55,9 +55,9 @@ export default function Navbar() {
           </div>
         </div>
         <Link to="/cart" className="relative">
-          <PiHandbagLight className="w-5 h-5 cursor-pointer" />
+          <img src={assets.cart_icon} className="w-5 min-w-5 cursor-pointer" />
           <p className="absolute right-[-5px] bottom-[-5px] w-4 flex items-center justify-center leading-4 bg-black text-white aspect-square rounded-full text-[9px]">
-            10
+            {getCartCount()}
           </p>
         </Link>
         <TbMenuDeep
